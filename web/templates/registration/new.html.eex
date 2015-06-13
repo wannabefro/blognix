@@ -33,6 +33,6 @@
 
   <div class="form-group">
     <%= submit "Register", class: "btn btn-primary" %>
-    <%#= link("Login", to: session_path(@conn, :new), class: "btn btn-success pull-right") %>
+    <%= link("Login", to: session_path(@conn, :new), class: "btn btn-success pull-right") %>
   </div>
 <% end %>

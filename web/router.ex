@@ -14,10 +14,13 @@ defmodule Blognix.Router do
 
   scope "/", Blognix do
     pipe_through :browser # Use the default browser stack
+    get "/", SessionController, :new
+    post "/login", SessionController, :create
+    get "/logout", SessionController, :delete
     get "/registration", RegistrationController, :new
     post "/registration", RegistrationController, :create
 
-    get "/", PageController, :index
+    get "/pages", PageController, :index
   end
 
   # Will be used for subdomained blog urls
