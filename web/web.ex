@@ -30,6 +30,7 @@ defmodule Blognix.Web do
       alias Blognix.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
+      alias Blognix.User
 
       # Import URL helpers from the router
       import Blognix.Router.Helpers
