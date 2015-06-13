@@ -18,6 +18,13 @@ defmodule Blognix.Router do
     get "/", PageController, :index
   end
 
+  # Will be used for subdomained blog urls
+  scope "/", host: "*." do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", PageController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", Blognix do
   #   pipe_through :api
