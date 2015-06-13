@@ -8,7 +8,7 @@ defmodule Blognix.SessionController do
     render conn, changeset: User.changeset(%User{})
   end
 
-  def create(conn, %{"User" => user_params}) do
+  def create(conn, %{"user" => user_params}) do
     user = if is_nil(user_params["email"]) do
       nil
     else
