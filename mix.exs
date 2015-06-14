@@ -43,6 +43,7 @@ defmodule Blognix.Mixfile do
      {:phoenix_live_reload, "~> 0.4", only: :dev},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 0.10"},
+     { :inflex, "~> 1.3.0" },
      {:hound, "~> 0.7", only: :test}]
   end
 end

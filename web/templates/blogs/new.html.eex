@@ -1,0 +1,27 @@
+<h1>Create your blog</h1>
+<%= form_for @changeset, blogs_path(@conn, :create), fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, somethingwent wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label>Title</label>
+    <%= text_input f, :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <%= textarea f, :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Create Blog", class: "btn btn-primary" %>
+  </div>
+<% end %>

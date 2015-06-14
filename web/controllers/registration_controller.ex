@@ -17,7 +17,7 @@ defmodule Blognix.RegistrationController do
       conn
         |> put_flash(:info, "Successfully registered and logged in")
         |> put_session(:current_user, new_user)
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: "/")
     else
       render conn, "new.html", changeset: changeset
     end

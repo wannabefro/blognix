@@ -25,7 +25,7 @@ defmodule Blognix.SessionController do
       |> redirect(to: session_path(conn, :new))
   end
 
-  defp sign_in(user, password, conn) when is_nil(user) do
+  defp sign_in(user, _, conn) when is_nil(user) do
     conn
       |> put_flash(:error, "Username or password are incorrect.")
       |> render "new.html", changeset: User.changeset(%User{})
@@ -37,7 +37,7 @@ defmodule Blognix.SessionController do
         conn
           |> put_session(:current_user, user)
           |> put_flash(:info, "You are now signed in.")
-          |> redirect(to: page_path(conn, :index))
+          |> redirect(to: "/")
       true ->
         conn
          |> put_flash(:error, "Username or password are incorrect.")

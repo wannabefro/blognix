@@ -12,15 +12,18 @@ defmodule Blognix.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Blognix do
+
+  scope alias: Blognix do
     pipe_through :browser # Use the default browser stack
+
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     get "/logout", SessionController, :delete
     get "/registration", RegistrationController, :new
     post "/registration", RegistrationController, :create
 
-    get "/", PageController, :index
+    resources "/blogs", BlogsController
+    get "/", BlogsController, :index
   end
 
   # Other scopes may use custom stacks.

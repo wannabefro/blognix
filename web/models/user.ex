@@ -8,6 +8,7 @@ defmodule Blognix.User do
     field :encrypted_password, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+    has_one :blog, Blognix.Blog
 
     timestamps
   end
