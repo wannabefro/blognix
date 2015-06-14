@@ -35,6 +35,7 @@ defmodule Blognix.Web do
       # Import URL helpers from the router
       import Blognix.Router.Helpers
       plug Blognix.Plug.CurrentUser
+      plug Blognix.Plug.Subdomain
     end
   end
 

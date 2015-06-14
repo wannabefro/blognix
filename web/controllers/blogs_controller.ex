@@ -42,14 +42,18 @@ defmodule Blognix.BlogsController do
   end
 
   def show(conn, _) do
-    slug = List.first(String.split(conn.host, "."))
-    blog = Repo.get_by(Blog, slug: slug)
-    if blog do
-      render conn, blog: blog
+    if conn.assigns[:subdomain] do
+      blog = Repo.get_by(Blog, slug: conn.assigns.subdomain)
+      if blog do
+        render conn, blog: blog
+      else
+        conn
+          |> put_status(:not_found)
+          |> render(Blognix.ErrorView, "404.html")
+      end
     else
       conn
-        |> put_status(:not_found)
-        |> render(Blognix.ErrorView, "404.html")
+        |>redirect(to: blogs_path(conn, :index))
     end
   end
 end

@@ -8,23 +8,13 @@ defmodule Blognix.Router do
     plug :protect_from_forgery
   end
 
-  pipeline :subdomain do
-    plug :is_blog_subdomain
-  end
-
   pipeline :api do
     plug :accepts, ["json"]
   end
 
 
-  scope "/b", Blognix do
-    pipe_through :browser
-
-    get "/", BlogsController, :show
-  end
-
   scope "/", Blognix do
-    pipe_through [:browser, :subdomain] # Use the default browser stack
+    pipe_through :browser # Use the default browser stack
 
     get "/login", SessionController, :new
     post "/login", SessionController, :create
@@ -35,21 +25,11 @@ defmodule Blognix.Router do
 
     resources "/blogs", BlogsController
 
-    get "/", BlogsController, :index
+    get "/", BlogsController, :show
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", Blognix do
   #   pipe_through :api
   # end
-
-  defp is_blog_subdomain(conn, _) do
-    if Regex.match?(~r/\w+\.\w+/, conn.host) do
-      conn
-        |> redirect(to: "/b")
-        |> halt
-    else
-      conn
-    end
-  end
 end
