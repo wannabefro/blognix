@@ -3,6 +3,9 @@ defmodule CreatingABlogTest do
   use Blognix.AuthenticationHelpers
   use Hound.Helpers
 
+  alias Blognix.Blog
+  alias Blognix.Repo
+
   @user_attrs %{email: "test@test.com", password: "password",
     password_confirmation: "password", username: "test"}
 
@@ -22,5 +25,14 @@ defmodule CreatingABlogTest do
   end
 
   test "visiting a blog" do
+    current_user = Repo.get_by(Blognix.User, email: "test@test.com")
+    new_blog = build(current_user, :blog)
+    changeset = Blog.changeset(new_blog, %{title: "test", description: "blog"})
+    blog = Repo.insert(changeset)
+    split_url = Tuple.to_list(String.split_at(current_url(), 7))
+    blog_url = blog.title <> "." <> List.last(split_url)
+    navigate_to(blog_url)
+    assert page_source =~ blog.title
+    assert page_source =~ blog.description
   end
 end

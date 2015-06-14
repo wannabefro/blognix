@@ -1,5 +1,4 @@
 defmodule Blognix.Plug.Authenticate do
-  import Plug.Conn
   import Blognix.Router.Helpers
   import Phoenix.Controller
 

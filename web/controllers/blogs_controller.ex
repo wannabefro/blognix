@@ -32,6 +32,24 @@ defmodule Blognix.BlogsController do
 
   def show(conn, %{"id" => slug}) do
     blog = Repo.get_by(Blog, slug: slug)
-    render conn, blog: blog
+    if blog do
+      render conn, blog: blog
+    else
+      conn
+        |> put_status(:not_found)
+        |> render(Blognix.ErrorView, "404.html")
+    end
+  end
+
+  def show(conn, _) do
+    slug = List.first(String.split(conn.host, "."))
+    blog = Repo.get_by(Blog, slug: slug)
+    if blog do
+      render conn, blog: blog
+    else
+      conn
+        |> put_status(:not_found)
+        |> render(Blognix.ErrorView, "404.html")
+    end
   end
 end

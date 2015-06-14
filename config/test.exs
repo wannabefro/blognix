@@ -16,3 +16,5 @@ config :blognix, Blognix.Repo,
   password: "postgres",
   database: "blognix_test",
   size: 1 # Use a single connection for transactional tests
+
+config :hound, browser: "chrome"
